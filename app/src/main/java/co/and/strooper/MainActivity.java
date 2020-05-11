@@ -2,8 +2,10 @@ package co.and.strooper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import co.and.strooper.activities.ContenedorInstruccionesActivity;
 import co.and.strooper.interfaces.iComunicarFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 //Se pone implements para el uso de interface iComunicarFragment
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity implements iComunicarFragmen
 
     @Override
     public void ayudaJuego() {
-        Toast.makeText(this, "Ayuda juego desde el MainActivity", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Ayuda juego desde el MainActivity", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(), ContenedorInstruccionesActivity.class);
+        startActivity(intent);
 
     }
 
