@@ -32,4 +32,17 @@
         android:textColor="@color/cardview_light_background"
         android:textSize="20dp" />
 
+    <Button
+        android:id="@+id/btnTerminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Terminar"
+        android:textColor="#ffff"
+        android:background="@color/colorTransparente"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginRight="17dp"/>
+
 </RelativeLayout>
