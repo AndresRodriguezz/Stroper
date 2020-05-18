@@ -4,28 +4,31 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHost;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import co.and.strooper.activities.ContenedorInstruccionesActivity;
 import co.and.strooper.clases.Utilidades;
 import co.and.strooper.fragments.InicioFragment;
 import co.and.strooper.fragments.RegistroJugadorFragment;
 import co.and.strooper.interfaces.iComunicarFragment;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 //Se pone implements para el uso de interface iComunicarFragment
 public class MainActivity extends AppCompatActivity implements iComunicarFragment {
-    Fragment registroJugadorFragment,inicioFragment;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        inicioFragment = new InicioFragment();
-        registroJugadorFragment = new RegistroJugadorFragment();
 
 
 
@@ -43,8 +46,17 @@ public class MainActivity extends AppCompatActivity implements iComunicarFragmen
             public void onClick(DialogInterface dialog, int which) {
                 //Toast.makeText(MainActivity.this, "Registrar Jugador", Toast.LENGTH_SHORT).show();
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,registroJugadorFragment).commit();
+                //Linea que se usa en caso de no estar usando el navigation en el proyecto esto sera la linea
+                //getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,fragmentInicio).commit();
 
+
+                //Fragment navhost = getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+                //NavController navController = NavHostFragment.findNavController(navhost);
+                //navController.navigate(R.id.registroJugadorFragment);
+
+               //NavHostFragment.findNavController(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment)).navigate(R.id.registroJugadorFragment);
+
+                Navigation.findNavController(findViewById(R.id.nav_host_fragment)).navigate(R.id.registroJugadorFragment);
             }
         }).setPositiveButton("SELECCIONAR", new DialogInterface.OnClickListener() {
             @Override

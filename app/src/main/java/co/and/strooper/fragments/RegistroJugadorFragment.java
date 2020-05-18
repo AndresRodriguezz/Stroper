@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import co.and.strooper.R;
@@ -81,6 +83,11 @@ public class RegistroJugadorFragment extends Fragment {
         final AdaptadorClase miAdaptador = new AdaptadorClase(Utilidades.listaAvatares);
         recyclerAvatars.setAdapter(miAdaptador);
 
+
+        //Linea para cambiar de fragmento ,con esta se asigna la vista.
+        //final NavController navController = Navigation.findNavController(vista);
+        //La linea de abajo donde quiere ques se cambie la vista.
+        //navController.navigate(R.id.segundoFragmento);
         return vista;
     }
 }
