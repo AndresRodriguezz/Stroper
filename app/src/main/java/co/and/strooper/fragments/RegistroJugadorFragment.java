@@ -1,5 +1,6 @@
 package co.and.strooper.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import co.and.strooper.R;
+import co.and.strooper.adapters.AdaptadorClase;
+import co.and.strooper.clases.AvatarVo;
+import co.and.strooper.clases.Utilidades;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +30,10 @@ public class RegistroJugadorFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    View vista;
+    Activity actividad;
+    RecyclerView recyclerAvatars;
 
     public RegistroJugadorFragment() {
         // Required empty public constructor
@@ -60,6 +70,17 @@ public class RegistroJugadorFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_registro_jugador, container, false);
+        vista = inflater.inflate(R.layout.fragment_registro_jugador, container, false);
+
+        //Se asigna al RecyclerView el grid para acomodar los elemetos en 3 columnas
+        recyclerAvatars = vista.findViewById(R.id.idRecyclerAvatar);
+        recyclerAvatars.setLayoutManager(new GridLayoutManager(this.actividad,3));
+        //SE ajusta tamaño
+        recyclerAvatars.setHasFixedSize(true);
+        //SE llena el Recycler con el adaptador
+        final AdaptadorClase miAdaptador = new AdaptadorClase(Utilidades.listaAvatares);
+        recyclerAvatars.setAdapter(miAdaptador);
+
+        return vista;
     }
 }

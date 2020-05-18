@@ -9,10 +9,23 @@
         android:id="@+id/inicioFragment"
         android:name="co.and.strooper.fragments.InicioFragment"
         android:label="fragment_inicio"
-        tools:layout="@layout/fragment_inicio" />
+        tools:layout="@layout/fragment_inicio" >
+        <action
+            android:id="@+id/action_inicioFragment_to_registroJugadorFragment2"
+            app:destination="@id/registroJugadorFragment" />
+    </fragment>
     <activity
         android:id="@+id/splashActivity"
         android:name="co.and.strooper.activities.SplashActivity"
         android:label="activity_splash"
         tools:layout="@layout/activity_splash" />
+    <fragment
+        android:id="@+id/registroJugadorFragment"
+        android:name="co.and.strooper.fragments.RegistroJugadorFragment"
+        android:label="fragment_registro_jugador"
+        tools:layout="@layout/fragment_registro_jugador" >
+        <action
+            android:id="@+id/action_registroJugadorFragment_to_inicioFragment2"
+            app:destination="@id/inicioFragment" />
+    </fragment>
 </navigation>
