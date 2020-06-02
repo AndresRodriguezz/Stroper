@@ -18,6 +18,7 @@ public class AdaptadorClase extends RecyclerView.Adapter<AdaptadorClase.ViewHold
 
     List<AvatarVo> listaAvatars;
     View vista;
+    private int posicionMarcada=0;
 
     public AdaptadorClase(List<AvatarVo> listaAvatars) {
         this.listaAvatars = listaAvatars;
@@ -36,7 +37,24 @@ public class AdaptadorClase extends RecyclerView.Adapter<AdaptadorClase.ViewHold
     public void onBindViewHolder(@NonNull ViewHolderAvatar holder, int position) {
         //va consiguiendo cada pocision y la imprime
         holder.imgAvatar.setImageResource(listaAvatars.get(position).getAvatarId());
+        //variable local para no afecar el parametro
+        final int pos= position;
 
+        holder.cardAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Selecciona card");
+                //Se asigna el valor de posicion
+                posicionMarcada = pos;
+                //notifica y refresca los cambios
+                notifyDataSetChanged();
+            }
+        });
+        if(posicionMarcada==position){
+            holder.barraSeleccion.setBackgroundColor(vista.getResources().getColor(R.color.colorAmarillo));
+        }else{
+            holder.barraSeleccion.setBackgroundColor(vista.getResources().getColor(R.color.colorBlanco));
+        }
     }
 
     @Override
