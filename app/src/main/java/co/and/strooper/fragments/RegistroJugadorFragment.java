@@ -1,13 +1,20 @@
 package co.and.strooper.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -36,6 +43,9 @@ public class RegistroJugadorFragment extends Fragment {
     View vista;
     Activity actividad;
     RecyclerView recyclerAvatars;
+    EditText txtNickName;
+    RadioButton radioF, radioM;
+    FloatingActionButton fabRegistro;
 
     public RegistroJugadorFragment() {
         // Required empty public constructor
@@ -74,11 +84,30 @@ public class RegistroJugadorFragment extends Fragment {
         // Inflate the layout for this fragment
         vista = inflater.inflate(R.layout.fragment_registro_jugador, container, false);
 
+        txtNickName = vista.findViewById(R.id.campoNickName);
+        radioF = vista.findViewById(R.id.radioF);
+        radioM = vista.findViewById(R.id.radioM);
+        fabRegistro = vista.findViewById(R.id.idFabRegistro);
+
+
+
+
         //Se asigna al RecyclerView el grid para acomodar los elemetos en 3 columnas
         recyclerAvatars = vista.findViewById(R.id.idRecyclerAvatar);
+
+
+
         recyclerAvatars.setLayoutManager(new GridLayoutManager(this.actividad,3));
         //SE ajusta tamaño
         recyclerAvatars.setHasFixedSize(true);
+        fabRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registroJugador();
+            }
+        });
+
+
         //SE llena el Recycler con el adaptador
         final AdaptadorClase miAdaptador = new AdaptadorClase(Utilidades.listaAvatares);
         recyclerAvatars.setAdapter(miAdaptador);
@@ -89,5 +118,32 @@ public class RegistroJugadorFragment extends Fragment {
         //La linea de abajo donde quiere ques se cambie la vista.
         //navController.navigate(R.id.segundoFragmento);
         return vista;
+    }
+
+   /* @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof  Activity){
+            this.actividad = (Activity) context;
+        }
+    }*/
+
+    private void registroJugador() {
+        String genero="";
+        if(radioM.isChecked()){
+            genero="M";
+        }else if (radioF.isChecked()){
+            genero="F";
+        }else {
+            genero="No seleccinado";
+        }
+        if(genero.equals("No seleccinado") && !txtNickName.getText().toString().trim().equals("")){
+            String registro = "Nombre"+ txtNickName.getText().toString()+"\n";
+            registro +="Genero: "+genero+"\n";
+            registro +="Avatar Id: "+ Utilidades.avatarSeleccion.getId();
+            Toast.makeText(getContext(), "Se registro exitosamente" + registro, Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getContext(), "Uno de los campos esta vacio", Toast.LENGTH_SHORT).show();
+        }
     }
 }

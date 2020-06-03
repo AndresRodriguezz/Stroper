@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import co.and.strooper.R;
 import co.and.strooper.clases.AvatarVo;
+import co.and.strooper.clases.Utilidades;
 
 public class AdaptadorClase extends RecyclerView.Adapter<AdaptadorClase.ViewHolderAvatar> {
 
@@ -37,6 +38,10 @@ public class AdaptadorClase extends RecyclerView.Adapter<AdaptadorClase.ViewHold
     public void onBindViewHolder(@NonNull ViewHolderAvatar holder, int position) {
         //va consiguiendo cada pocision y la imprime
         holder.imgAvatar.setImageResource(listaAvatars.get(position).getAvatarId());
+
+        Utilidades.avatarSeleccion = listaAvatars.get(position);
+        Utilidades.avatarIdSeleccion = position+1;
+
         //variable local para no afecar el parametro
         final int pos= position;
 
