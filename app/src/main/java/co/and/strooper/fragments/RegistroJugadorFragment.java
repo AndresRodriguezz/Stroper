@@ -1,7 +1,9 @@
 package co.and.strooper.fragments;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import co.and.strooper.R;
 import co.and.strooper.adapters.AdaptadorClase;
 import co.and.strooper.clases.AvatarVo;
+import co.and.strooper.clases.ConexionSQLiteHelper;
 import co.and.strooper.clases.Utilidades;
 
 /**
@@ -137,13 +140,42 @@ public class RegistroJugadorFragment extends Fragment {
         }else {
             genero="No seleccinado";
         }
-        if(genero.equals("No seleccinado") && !txtNickName.getText().toString().trim().equals("")){
+        if(!genero.equals("No seleccinado") && !txtNickName.getText().toString().trim().equals("")){
+
+            //
+            int avatarId  = Utilidades.avatarSeleccion.getId();
+            String nickName = txtNickName.getText().toString();
+
+
+
+
             String registro = "Nombre"+ txtNickName.getText().toString()+"\n";
             registro +="Genero: "+genero+"\n";
             registro +="Avatar Id: "+ Utilidades.avatarSeleccion.getId();
-            Toast.makeText(getContext(), "Se registro exitosamente" + registro, Toast.LENGTH_SHORT).show();
+
+            //Estamos abriendo la conexion y el sistema entraria al upgrade ya que la base fue creaada anteriormente
+            ConexionSQLiteHelper conn = new ConexionSQLiteHelper(getContext(),Utilidades.NOMBRE_BD,null,1);
+
+            SQLiteDatabase db = conn.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put (Utilidades.CAMPO_NOMBRE,nickName);
+            values.put(Utilidades.CAMPO_GENERO,genero);
+            values.put(Utilidades.CAMPO_AVTAR,avatarId);
+
+            Long idResultado = db.insert(Utilidades.TABLA_JUGADOR,Utilidades.CAMPO_ID,values);
+
+            if(idResultado!= 1){
+                Toast.makeText(getContext(), "Se registro exitosamente \n" + idResultado + registro, Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getContext(), "No se pudo registrar al jugador\n", Toast.LENGTH_SHORT).show();
+            }
+
+            db.close();
+
         }else{
             Toast.makeText(getContext(), "Uno de los campos esta vacio", Toast.LENGTH_SHORT).show();
+
         }
     }
 }

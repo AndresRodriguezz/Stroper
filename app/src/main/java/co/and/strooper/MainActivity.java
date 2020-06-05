@@ -9,6 +9,7 @@ import androidx.navigation.NavHost;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import co.and.strooper.activities.ContenedorInstruccionesActivity;
+import co.and.strooper.clases.ConexionSQLiteHelper;
 import co.and.strooper.clases.Utilidades;
 import co.and.strooper.fragments.InicioFragment;
 import co.and.strooper.fragments.RegistroJugadorFragment;
@@ -25,16 +26,19 @@ public class MainActivity extends AppCompatActivity implements iComunicarFragmen
 
 
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         //hago llamado a Utilidades para que llene la lista avatares, ya que la listaAvatares aun no ha sido inicializada
         //Construye nuestra lista para que ya se puede utilizar
         Utilidades.obtenerListaAvatares();
+
+        ConexionSQLiteHelper conn = new ConexionSQLiteHelper(this,Utilidades.NOMBRE_BD,null,1);
 
     }
     public AlertDialog dialogoGestionDeUsuarios (){

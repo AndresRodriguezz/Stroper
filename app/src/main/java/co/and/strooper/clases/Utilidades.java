@@ -10,6 +10,19 @@ public class Utilidades {
     public static int avatarIdSeleccion = 0;
     public static AvatarVo avatarSeleccion = null;
 
+    public static  String   NOMBRE_BD = "strooper_bd";
+
+    //creamos las constantes de los campos de la tabla judador
+    public static  final String TABLA_JUGADOR="jugador";
+    public static  final String CAMPO_ID="id";
+    public static  final String CAMPO_NOMBRE="nombre";
+    public static  final String CAMPO_GENERO="genero";
+    public static  final String CAMPO_AVTAR="avatar";
+
+    public static final String CREAR_TABLA_JUGADOR ="CREATE TABLE "+TABLA_JUGADOR+" ("+CAMPO_ID+" INTEGER PRIMARY KEY, "+CAMPO_NOMBRE+" TEXT, "+CAMPO_GENERO+" TEXT, "+CAMPO_AVTAR+" INTEGER)";
+
+
+
 
     public static void obtenerListaAvatares(){
         //metodo para obtener y asignar los datos del arraylist que es la listaAvatares
